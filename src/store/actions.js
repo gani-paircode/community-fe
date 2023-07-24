@@ -5,22 +5,24 @@ import { getErrorState, getLoadingState, getSuccessState } from "./helpers";
 export const getActions = (set) => {
     const login = async (id, pass) => {
         try {
-            set((oldState) => ({ ...oldState, admin: getLoadingState() }));
+            set((oldData) => ({ ...oldData, admin: getLoadingState() }));
             const user = await doLogin(id, pass);
-            set((oldState) => ({ ...oldState, admin: getSuccessState(user) }));
-            localStorage.setItem('admin', user);
+            set((oldData) => ({ ...oldData, admin: getSuccessState(user) }));
+            console.log('After login ', user);
+            localStorage.setItem('admin', JSON.stringify(user));
         } catch (error) {
-            set((oldState) => ({ ...oldState, admin: getErrorState('Something went wrong while doing login') }));
+            set((oldData) => ({ ...oldData, admin: getErrorState('Something went wrong while doing login') }));
+            localStorage.removeItem('admin');
         }
     }
 
     const getMembers = async () => {
         try {
-            set((oldState) => ({ ...oldState, members: getLoadingState() }));
+            set((oldData) => ({ ...oldData, members: getLoadingState() }));
             const members = await fetchUsers();
-            set((oldState) => ({ ...oldState, members: getSuccessState(members) }));
+            set((oldData) => ({ ...oldData, members: getSuccessState(members) }));
         } catch (error) {
-            set((oldState) => ({ ...oldState, members: getErrorState('Something went wrong while fetching members') }));
+            set((oldData) => ({ ...oldData, members: getErrorState('Something went wrong while fetching members') }));
         }
     }
 

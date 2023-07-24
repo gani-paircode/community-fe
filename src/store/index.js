@@ -6,7 +6,7 @@ const initialState = {
     members: null,
 }
 
-export const communityStore = create((set) => ({
-    state: initialState,
+export const useAppStore = create((set) => ({
+    data: initialState,
     actions: getActions(set),
 }));
