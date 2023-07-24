@@ -20,7 +20,7 @@ export const Login = () => {
             <br />
             <input type='password' ref={passRef} placeholder='Enter password' />
             <br />
-            <button type='button' onClick={login} disabled={admin && admin.isFetching}> Login </button>
+            <button type='button' onClick={() => login(idRef.current.value, passRef.current.value)} disabled={admin && admin.isFetching}> Login </button>
         </div>
     )
 }

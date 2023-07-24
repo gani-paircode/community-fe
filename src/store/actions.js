@@ -5,6 +5,7 @@ import { getErrorState, getLoadingState, getSuccessState } from "./helpers";
 export const getActions = (set) => {
     const login = async (id, pass) => {
         try {
+            console.log('in login action ');
             set((oldData) => ({ ...oldData, admin: getLoadingState() }));
             const user = await doLogin(id, pass);
             set((oldData) => ({ ...oldData, admin: getSuccessState(user) }));
