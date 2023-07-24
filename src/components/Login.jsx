@@ -7,13 +7,13 @@ export const Login = () => {
     const passRef = useRef(null);
     const adminData = localStorage.getItem('admin');
     
+    console.log('admin in Login.jsx ', admin)
 
     if (adminData) {
         return (
             <h1>Already Logged in...</h1>
         )
     }
-    console.log('admin ', admin)
     return (
         <div>
             <input type='text' ref={idRef} placeholder='Enter id' />

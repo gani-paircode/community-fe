@@ -8,7 +8,7 @@ export const getActions = (set) => {
             set((oldData) => ({ ...oldData, admin: getLoadingState() }));
             const user = await doLogin(id, pass);
             set((oldData) => ({ ...oldData, admin: getSuccessState(user) }));
-            console.log('After login ', user);
+            console.log('login api response..  ', user);
             localStorage.setItem('admin', JSON.stringify(user));
         } catch (error) {
             set((oldData) => ({ ...oldData, admin: getErrorState('Something went wrong while doing login') }));
