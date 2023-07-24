@@ -20,10 +20,10 @@ export const getActions = (set) => {
                 data.admin = getSuccessState(user);
                 const newState = { ...oldState, data }
                 console.log('new data vs old data ', { newState, oldState });
+                localStorage.setItem('admin', JSON.stringify(user));
                 return newState;
             });
             console.log('login api response..  ', user);
-            localStorage.setItem('admin', JSON.stringify(user));
         } catch (error) {
             console.log('err in try ', error);
             const msg = getAxiosErrorMessage(error, 'Something went wrong while doing login');
@@ -31,10 +31,10 @@ export const getActions = (set) => {
                 const data = { ...oldState.data };
                 data.admin = getErrorState(msg);
                 const newState = { ...oldState, data }
+                localStorage.removeItem('admin');
                 console.log('new data vs old data ', { newState, oldState });
                 return newState;
             });
-            localStorage.removeItem('admin');
         }
     }
 
