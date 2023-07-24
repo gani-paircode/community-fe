@@ -1,0 +1,13 @@
+* {
+    padding: 0px;
+    margin: 0px;
+}
+
+input, button {
+    padding: 0.5rem;
+}
+
+div.error {
+    color: #ea152c;
+    padding: 0.25rem;
+}

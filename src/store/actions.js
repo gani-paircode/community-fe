@@ -1,6 +1,7 @@
 import { doLogin } from "../service/auth"
 import { fetchUsers } from "../service/members";
-import { getErrorState, getLoadingState, getSuccessState } from "./helpers";
+import _get from 'lodash/get';
+import { getAxiosErrorMessage, getErrorState, getLoadingState, getSuccessState } from "./helpers";
 
 export const getActions = (set) => {
     const login = async (id, pass) => {
@@ -13,7 +14,7 @@ export const getActions = (set) => {
                 console.log('new data vs old data ', { newState, oldState });
                 return newState;
             });
-            const user = await doLogin(id, pass);
+            const { data: user } = await doLogin(id, pass);
             set((oldState) => {
                 const data = { ...oldState.data };
                 data.admin = getSuccessState(user);
@@ -24,9 +25,11 @@ export const getActions = (set) => {
             console.log('login api response..  ', user);
             localStorage.setItem('admin', JSON.stringify(user));
         } catch (error) {
+            console.log('err in try ', error);
+            const msg = getAxiosErrorMessage(error, 'Something went wrong while doing login');
             set((oldState) => {
                 const data = { ...oldState.data };
-                data.admin = getErrorState('Something went wrong while doing login');
+                data.admin = getErrorState(msg);
                 const newState = { ...oldState, data }
                 console.log('new data vs old data ', { newState, oldState });
                 return newState;
@@ -44,7 +47,7 @@ export const getActions = (set) => {
                 console.log('new data vs old data ', { newState, oldState });
                 return newState;
             });
-            const members = await fetchUsers();
+            const { data: members } = await fetchUsers();
             set((oldState) => {
                 const data = { ...oldState.data };
                 data.members = getSuccessState(members);
