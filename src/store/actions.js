@@ -56,9 +56,10 @@ export const getActions = (set) => {
                 return newState;
             });
         } catch (error) {
+            const msg = getAxiosErrorMessage(error, 'Something went wrong while fetching members');
             set((oldState) => {
                 const data = { ...oldState.data };
-                data.members = getErrorState('Something went wrong while fetching members');
+                data.members = getErrorState(msg);
                 const newState = { ...oldState, data }
                 console.log('new data vs old data ', { newState, oldState });
                 return newState;

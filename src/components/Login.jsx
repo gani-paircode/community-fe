@@ -1,4 +1,6 @@
 import React, { useRef } from 'react';
+import _get from 'lodash/get';
+
 import { useAppStore } from '../store';
 
 export const Login = () => {
@@ -13,8 +15,9 @@ export const Login = () => {
         )
     }
 
-    const isFetching = admin && admin.isFetching;
-    const errMsg = admin && admin.errMsg ? admin.errMsg : '';
+    const isFetching = _get(admin, 'isFetching', false);
+    const errMsg = _get(admin, 'errMsg', '');
+
     return (
         <div>
             <input disabled={isFetching} type='text' ref={idRef} placeholder='Enter id' />
